@@ -41,6 +41,7 @@
       'lib/async_hooks.js',
       'lib/assert.js',
       'lib/buffer.js',
+      'lib/_third_party_main.js',
       'lib/child_process.js',
       'lib/console.js',
       'lib/constants.js',
