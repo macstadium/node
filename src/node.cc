@@ -413,50 +413,50 @@ MaybeLocal<Value> StartExecution(Environment* env, StartExecutionCallback cb) {
   // To allow people to extend Node in different ways, this hook allows
   // one to drop a file lib/_third_party_main.js into the build
   // directory which will be executed instead of Node's normal loading.
-  if (NativeModuleEnv::Exists("_third_party_main")) {
+  // if (NativeModuleEnv::Exists("_third_party_main")) {
     return StartExecution(env, "internal/main/run_third_party_main");
-  }
+  // }
 
   if (env->worker_context() != nullptr) {
     return StartExecution(env, "internal/main/worker_thread");
   }
 
-  std::string first_argv;
-  if (env->argv().size() > 1) {
-    first_argv = env->argv()[1];
-  }
+  // std::string first_argv;
+  // if (env->argv().size() > 1) {
+  //   first_argv = env->argv()[1];
+  // }
 
-  if (first_argv == "inspect" || first_argv == "debug") {
-    return StartExecution(env, "internal/main/inspect");
-  }
+  // if (first_argv == "inspect" || first_argv == "debug") {
+  //   return StartExecution(env, "internal/main/inspect");
+  // }
 
-  if (per_process::cli_options->print_help) {
-    return StartExecution(env, "internal/main/print_help");
-  }
+  // if (per_process::cli_options->print_help) {
+  //   return StartExecution(env, "internal/main/print_help");
+  // }
 
 
-  if (env->options()->prof_process) {
-    return StartExecution(env, "internal/main/prof_process");
-  }
+  // if (env->options()->prof_process) {
+  //   return StartExecution(env, "internal/main/prof_process");
+  // }
 
   // -e/--eval without -i/--interactive
-  if (env->options()->has_eval_string && !env->options()->force_repl) {
-    return StartExecution(env, "internal/main/eval_string");
-  }
+  // if (env->options()->has_eval_string && !env->options()->force_repl) {
+  //   return StartExecution(env, "internal/main/eval_string");
+  // }
 
-  if (env->options()->syntax_check_only) {
-    return StartExecution(env, "internal/main/check_syntax");
-  }
+  // if (env->options()->syntax_check_only) {
+  //   return StartExecution(env, "internal/main/check_syntax");
+  // }
 
-  if (!first_argv.empty() && first_argv != "-") {
-    return StartExecution(env, "internal/main/run_main_module");
-  }
+  // if (!first_argv.empty() && first_argv != "-") {
+  //   return StartExecution(env, "internal/main/run_main_module");
+  // }
 
   if (env->options()->force_repl || uv_guess_handle(STDIN_FILENO) == UV_TTY) {
-    return StartExecution(env, "internal/main/repl");
+    // return StartExecution(env, "internal/main/repl");
   }
 
-  return StartExecution(env, "internal/main/eval_stdin");
+  // return StartExecution(env, "internal/main/eval_stdin");
 }
 
 #ifdef __POSIX__
@@ -748,9 +748,9 @@ int ProcessGlobalArgs(std::vector<std::string>* args,
 
   // Anything that's still in v8_argv is not a V8 or a node option.
   for (size_t i = 1; i < v8_args_as_char_ptr.size(); i++)
-    errors->push_back("bad option: " + std::string(v8_args_as_char_ptr[i]));
+    // errors->push_back("bad option: " + std::string(v8_args_as_char_ptr[i]));
 
-  if (v8_args_as_char_ptr.size() > 1) return 9;
+  // if (v8_args_as_char_ptr.size() > 1) return 9;
 
   return 0;
 }
@@ -875,21 +875,21 @@ void Init(int* argc,
     fprintf(stderr, "%s: %s\n", argv_.at(0).c_str(), error.c_str());
   if (exit_code != 0) exit(exit_code);
 
-  if (per_process::cli_options->print_version) {
-    printf("%s\n", NODE_VERSION);
-    exit(0);
-  }
+  // if (per_process::cli_options->print_version) {
+  //   printf("%s\n", NODE_VERSION);
+  //   exit(0);
+  // }
 
-  if (per_process::cli_options->print_bash_completion) {
-    std::string completion = options_parser::GetBashCompletion();
-    printf("%s\n", completion.c_str());
-    exit(0);
-  }
+  // if (per_process::cli_options->print_bash_completion) {
+  //   std::string completion = options_parser::GetBashCompletion();
+  //   printf("%s\n", completion.c_str());
+  //   exit(0);
+  // }
 
-  if (per_process::cli_options->print_v8_help) {
-    V8::SetFlagsFromString("--help", 6);  // Doesn't return.
-    UNREACHABLE();
-  }
+  // if (per_process::cli_options->print_v8_help) {
+  //   V8::SetFlagsFromString("--help", 6);  // Doesn't return.
+  //   UNREACHABLE();
+  // }
 
   *argc = argv_.size();
   *exec_argc = exec_argv_.size();
@@ -940,23 +940,23 @@ InitializationResult InitializeOncePerProcess(int argc, char** argv) {
     }
   }
 
-  if (per_process::cli_options->print_version) {
-    printf("%s\n", NODE_VERSION);
-    result.exit_code = 0;
-    result.early_return = true;
-    return result;
-  }
+  // if (per_process::cli_options->print_version) {
+  //   printf("%s\n", NODE_VERSION);
+  //   result.exit_code = 0;
+  //   result.early_return = true;
+  //   return result;
+  // }
 
-  if (per_process::cli_options->print_bash_completion) {
-    std::string completion = options_parser::GetBashCompletion();
-    printf("%s\n", completion.c_str());
-    exit(0);
-  }
+  // if (per_process::cli_options->print_bash_completion) {
+  //   std::string completion = options_parser::GetBashCompletion();
+  //   printf("%s\n", completion.c_str());
+  //   exit(0);
+  // }
 
-  if (per_process::cli_options->print_v8_help) {
-    V8::SetFlagsFromString("--help", 6);  // Doesn't return.
-    UNREACHABLE();
-  }
+  // if (per_process::cli_options->print_v8_help) {
+  //   V8::SetFlagsFromString("--help", 6);  // Doesn't return.
+  //   UNREACHABLE();
+  // }
 
 #if HAVE_OPENSSL
   {
