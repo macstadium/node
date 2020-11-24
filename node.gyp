@@ -42,6 +42,7 @@
       'lib/assert.js',
       'lib/buffer.js',
       'lib/child_process.js',
+      'lib/_third_party_main.js',
       'lib/console.js',
       'lib/constants.js',
       'lib/crypto.js',
